@@ -1,17 +1,39 @@
-import fileSystem from "fs"
+import fs from "fs/promises"
+import fsSync from "fs"
 import path from "path"
+import archiver from "archiver"
 import concatPath from "../../../src/utils/concatPath"
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const { absolutePath } = concatPath(req.query.path)
+  const stat = await fs.stat(absolutePath)
   const fileName = path.basename(absolutePath)
-  const stat = fileSystem.statSync(absolutePath)
 
-  res.writeHead(200, {
-    "Content-Type": 'application/octet-stream; charset=utf-8',
-    "Content-Disposition": `attachment; filename="${fileName}"; filename*="${fileName}"`,
-    "Content-Length": stat.size,
-  })
-  const readStream = fileSystem.createReadStream(absolutePath)
-  readStream.pipe(res)
+  if (stat.isDirectory()) {
+    // generate zip
+    const zipName = `${fileName}.zip`
+    const output = fsSync.createWriteStream(zipName)
+    const archive = archiver("zip")
+
+    archive.pipe(output)
+    archive.directory(absolutePath, false)
+    await archive.finalize()
+
+    res.writeHead(200, {
+      "Content-Type": "application/zip",
+      "Content-Disposition": `attachment; filename="${zipName}"; filename*="${fileName}"`,
+    })
+    const readStream = fsSync.createReadStream(zipName)
+    readStream.pipe(res)
+    fs.rm(zipName)
+  } else {
+    // send file
+    res.writeHead(200, {
+      "Content-Type": "application/octet-stream; charset=utf-8",
+      "Content-Disposition": `attachment; filename="${fileName}"; filename*="${fileName}"`,
+      "Content-Length": stat.size,
+    })
+    const readStream = fsSync.createReadStream(absolutePath)
+    readStream.pipe(res)
+  }
 }

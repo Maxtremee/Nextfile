@@ -8,8 +8,8 @@ export default function Index({ files }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  const files = readDir()
+export async function getServerSideProps() {
+  const files = await readDir()
 
   return {
     props: {

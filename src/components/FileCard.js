@@ -2,24 +2,21 @@ import React from "react"
 import {
   Card,
   CardActionArea,
-  CardContent,
   CardHeader,
   CardMedia,
   Typography,
 } from "@mui/material"
 import FolderIcon from "@mui/icons-material/Folder"
 
-export default function FileCard({ name, isDirectory, path, thumbnail }) {
+export default function FileCard({ name, path, details, thumbnail }) {
   const downloadHandler = async () => {
-    if (!isDirectory) {
-      window.open(`/api/download/${path}`)
-    }
+    window.open(`/api/download/${path}/${name}`)
   }
 
   return (
     <Card onClick={downloadHandler}>
       <CardHeader
-        avatar={isDirectory && <FolderIcon />}
+        avatar={details?.isDirectory && <FolderIcon />}
         title={<Typography variant="body1">{name}</Typography>}
       />
       <CardActionArea>
@@ -31,6 +28,7 @@ export default function FileCard({ name, isDirectory, path, thumbnail }) {
             alt="image"
           />
         )}
+        <Typography variant="body2">{Date(details?.birthtime)}</Typography>
       </CardActionArea>
     </Card>
   )
