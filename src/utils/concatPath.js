@@ -1,4 +1,4 @@
-const beginning = process.env.FOLDER
+const mainDir = process.env.FOLDER
 
 export default function concatPath(pathArr) {
   let relativePath = ''
@@ -7,7 +7,7 @@ export default function concatPath(pathArr) {
       relativePath = `${relativePath}/${element}`
     })
   }
-  const absolutePath = `${beginning}/${relativePath}`
+  const absolutePath = `${mainDir}/${relativePath}`
   return {
     absolutePath, relativePath
   }

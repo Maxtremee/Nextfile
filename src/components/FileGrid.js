@@ -12,13 +12,13 @@ export default function FileGrid({ files }) {
         spacing={5}
         direction="row"
         justifyContent="center"
-        alignItems="center"
+        alignItems="flex-start"
       >
         {files &&
           files
             .sort((a) => (!a.details?.isDirectory ? 1 : -1))
             .map((file) => (
-              <Grid item xs={3} key={file?.name}>
+              <Grid item xs={12} sm={6} md={4} lg={2} key={file?.name}>
                 <FileCard {...file} />
               </Grid>
             ))}
