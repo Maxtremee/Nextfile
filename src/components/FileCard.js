@@ -1,21 +1,15 @@
 import React, { useState } from "react"
 import {
   Card,
-  CardContent,
   CardHeader,
   CardMedia,
   Typography,
   IconButton,
   Box,
-  CardActionArea,
 } from "@mui/material"
-import { Folder, Download, MoreVert } from "@mui/icons-material"
+import { Folder, Download, MoreVert, Share } from "@mui/icons-material"
 import prettyBytes from "pretty-bytes"
 import FileDetails from "./FileDetails"
-
-const cardStyle = {
-  // minHeight: "200px",
-}
 
 const headerStyle = {
   wordWrap: "break-word",
@@ -28,26 +22,35 @@ const actionsStyle = {
   alignItems: "center",
 }
 
-export default function FileCard({ name, path, details, thumbnail }) {
+export default function FileCard({ name, path, details, thumbnail, host }) {
+  const encodedLink = encodeURI(`/api/download${path}/${name}`)
+
   const [modalOpen, setModalOpen] = useState(false)
   const handleModalOpen = () => setModalOpen(true)
   const handleModalClose = () => setModalOpen(false)
 
   const downloadFile = () => {
-    const encodedLink = encodeURI(`/api/download${path}/${name}`)
     window.open(encodedLink)
+  }
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(`${host}${encodedLink}`);
   }
 
   return (
     <>
-      <Card sx={cardStyle}>
+      <Card>
         <CardHeader
           avatar={details?.isDirectory && <Folder />}
           title={<Typography variant="body1">{name}</Typography>}
-          action={
-            <IconButton onClick={handleModalOpen}>
+          action={<>
+          <IconButton onClick={copyLink}>
+            <Share />
+          </IconButton>
+          <IconButton onClick={handleModalOpen}>
               <MoreVert />
-            </IconButton>
+            </IconButton></>
+            
           }
           sx={headerStyle}
         />

@@ -4,7 +4,7 @@ import { Box } from "@mui/system"
 import React from "react"
 import FileCard from "./FileCard"
 
-export default function FileGrid({ files }) {
+export default function FileGrid({ files, host }) {
   return (
     <Box sx={{ flexGrow: 1, margin: "30px" }}>
       <Grid
@@ -19,7 +19,7 @@ export default function FileGrid({ files }) {
             .sort((a) => (!a.details?.isDirectory ? 1 : -1))
             .map((file) => (
               <Grid item xs={12} sm={6} md={4} lg={3} key={file?.name}>
-                <FileCard {...file} />
+                <FileCard {...file} host={host}/>
               </Grid>
             ))}
       </Grid>
