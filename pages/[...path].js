@@ -8,7 +8,8 @@ export default function Path({ files }) {
 
 export async function getServerSideProps(context) {
   const { path } = context.req.url
-  const files = await readDir(path)
+  const { locales } = context
+  const files = await readDir(path, locales)
 
   return {
     props: {

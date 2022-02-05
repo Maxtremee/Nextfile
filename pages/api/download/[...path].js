@@ -6,10 +6,10 @@ import concatPath from "../../../src/utils/concatPath"
 
 export default async function handler(req, res) {
   const { absolutePath } = concatPath(req.query.path)
-  const stat = await fs.stat(absolutePath)
+  const fileDetails = await fs.stat(absolutePath)
   const fileName = path.basename(absolutePath)
 
-  if (stat.isDirectory()) {
+  if (fileDetails.isDirectory()) {
     // generate zip
     const zipName = `${fileName}.zip`
     const output = fsSync.createWriteStream(zipName)
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     res.writeHead(200, {
       "Content-Type": "application/octet-stream; charset=utf-8",
       "Content-Disposition": `attachment; filename="${fileName}"; filename*="${fileName}"`,
-      "Content-Length": stat.size,
+      "Content-Length": fileDetails.size,
     })
     const readStream = fsSync.createReadStream(absolutePath)
     readStream.pipe(res)

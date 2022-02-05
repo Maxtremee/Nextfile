@@ -1,14 +1,15 @@
-const mainDir = process.env.FOLDER
+import path from "path/posix"
+
+const dir = process.env.FOLDER
 
 export default function concatPath(pathArr) {
   let relativePath = ''
-  if(pathArr) {
-    pathArr.forEach((element) => {
-      relativePath = `${relativePath}/${element}`
-    })
+  if (pathArr) {
+    relativePath = path.join(...pathArr)
   }
-  const absolutePath = `${mainDir}/${relativePath}`
+  const absolutePath = `${dir}/${relativePath}`
   return {
-    absolutePath, relativePath
+    absolutePath,
+    relativePath,
   }
 }
