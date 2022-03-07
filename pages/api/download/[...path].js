@@ -2,12 +2,13 @@ import fs from "fs/promises"
 import fsSync from "fs"
 import path from "path"
 import archiver from "archiver"
-import concatPath from "../../../src/utils/concatPath"
+
+const dir = process.env.FOLDER
 
 export default async function handler(req, res) {
-  const { absolutePath } = concatPath(req.query.path)
-  const fileDetails = await fs.stat(absolutePath)
-  const fileName = path.basename(absolutePath)
+  const filePath = path.join(dir, ...req.query.path)
+  const fileDetails = await fs.stat(filePath)
+  const fileName = path.basename(filePath)
 
   if (fileDetails.isDirectory()) {
     // generate zip
@@ -16,7 +17,7 @@ export default async function handler(req, res) {
     const archive = archiver("zip")
 
     archive.pipe(output)
-    archive.directory(absolutePath, false)
+    archive.directory(filePath, false)
     await archive.finalize()
 
     res.writeHead(200, {
@@ -33,7 +34,7 @@ export default async function handler(req, res) {
       "Content-Disposition": `attachment; filename="${fileName}"; filename*="${fileName}"`,
       "Content-Length": fileDetails.size,
     })
-    const readStream = fsSync.createReadStream(absolutePath)
+    const readStream = fsSync.createReadStream(filePath)
     readStream.pipe(res)
   }
 }

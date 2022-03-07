@@ -1,19 +1,20 @@
 import React from "react"
-import FileGrid from "../src/components/FileGrid"
-import readDir from "../src/utils/readDir"
+import MainWrapper from "../src/components/layout/MainWrapper"
+import readFolderStructure from "../src/utils/readFolderStructure"
 
-export default function Path({ files }) {
-  return <FileGrid files={files} />
+export default function Path(props) {
+  return <MainWrapper {...props} />
 }
 
 export async function getServerSideProps(context) {
-  const { path } = context.req.url
-  const { locales } = context
-  const files = await readDir(path, locales)
+  const { locales, req } = context
+  const { host } = req.headers
+  const folderStructure = await readFolderStructure('', locales)
 
   return {
     props: {
-      files,
+      host,
+      folderStructure
     },
   }
 }
