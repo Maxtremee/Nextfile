@@ -1,3 +1,4 @@
+import path from "path"
 import { styled, useTheme } from "@mui/material/styles"
 import { Drawer, IconButton, Divider, Box } from "@mui/material"
 import { TreeView, TreeItem } from "@mui/lab"
@@ -17,7 +18,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }))
 
-const CenterLabel = ({ name, path }) => {
+const CenterLabel = ({ name, path: filePath }) => {
   const router = useRouter()
   return (
     <Box
@@ -30,7 +31,7 @@ const CenterLabel = ({ name, path }) => {
       {name}
       <IconButton
         onClick={() => {
-          router.push(path)
+          router.push(path.join(filePath, name))
         }}
       >
         <ArrowForwardIcon />
@@ -41,10 +42,10 @@ const CenterLabel = ({ name, path }) => {
 
 const RecursiveTreeItem = ({ folderStructure }) =>
   folderStructure && folderStructure?.map(
-    ({ name, files, path, isDirectory }, index) =>
+    ({ name, files, path: filePath, isDirectory }, index) =>
       isDirectory && (
         <TreeItem
-          label={<CenterLabel name={name} path={path} />}
+          label={<CenterLabel name={name} path={filePath} />}
           nodeId={`${index}-${path}`}
           key={`${index}-${path}`}
         >

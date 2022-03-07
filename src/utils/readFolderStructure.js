@@ -60,7 +60,7 @@ async function readDir(filePath, locales) {
   }
 }
 
-export default async function readFolderStructure(pathArr, locales) {
-  const relativePath = path.join(...pathArr)
-  return await readDir(relativePath, locales)
+export default async function readFolderStructure(locales) {
+  const structure = await readDir('', locales)
+  return structure.sort((a) => !a?.isDirectory ? 1 : -1)
 }

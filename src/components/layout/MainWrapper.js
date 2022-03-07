@@ -4,10 +4,10 @@ import SearchAppBar from "./SearchAppBar"
 import MainStyled from "./MainStyled"
 import FolderDrawer from "./FolderDrawer"
 import DrawerHeader from "./DrawerHeader"
-import FileGrid from "../files/FileGrid"
+import FileView from "../files/FileView"
 import OptionsBar from "./OptionsBar"
 
-export default function MainWrapper({ host, folderStructure }) {
+export default function MainWrapper({ folderStructure }) {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [view, setView] = useState("grid")
 
@@ -19,8 +19,8 @@ export default function MainWrapper({ host, folderStructure }) {
     setDrawerOpen(false)
   }
 
-  const handleChangeView = (_event, view) => {
-    setView(view)
+  const handleChangeView = (event, value) => {
+    setView(value)
   }
 
   return (
@@ -38,7 +38,7 @@ export default function MainWrapper({ host, folderStructure }) {
       <MainStyled open={drawerOpen}>
         <DrawerHeader />
         <OptionsBar view={view} onChangeView={handleChangeView} />
-        <FileGrid folderStructure={folderStructure} host={host} />
+        <FileView view={view} folderStructure={folderStructure} />
       </MainStyled>
     </Box>
   )

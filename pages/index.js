@@ -7,13 +7,11 @@ export default function Index(props) {
 }
 
 export async function getStaticProps(context) {
-  const { locales, req } = context
-  // const { host } = req.headers
-  const folderStructure = await readFolderStructure('', locales)
+  const { locales } = context
+  const folderStructure = await readFolderStructure(locales)
 
   return {
     props: {
-      // host,
       folderStructure
     },
   }
