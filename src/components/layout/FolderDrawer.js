@@ -1,6 +1,6 @@
 import path from "path"
 import { styled, useTheme } from "@mui/material/styles"
-import { Drawer, IconButton, Divider, Box } from "@mui/material"
+import { Drawer, IconButton, Divider, Box, Tooltip } from "@mui/material"
 import { TreeView, TreeItem } from "@mui/lab"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
@@ -29,19 +29,22 @@ const CenterLabel = ({ name, path: filePath }) => {
       }}
     >
       {name}
-      <IconButton
-        onClick={() => {
-          router.push(path.join(filePath, name))
-        }}
-      >
-        <ArrowForwardIcon />
-      </IconButton>
+      <Tooltip title="Go to">
+        <IconButton
+          onClick={() => {
+            router.push(path.join(filePath, name))
+          }}
+        >
+          <ArrowForwardIcon />
+        </IconButton>
+      </Tooltip>
     </Box>
   )
 }
 
 const RecursiveTreeItem = ({ folderStructure }) =>
-  folderStructure && folderStructure?.map(
+  folderStructure &&
+  folderStructure?.map(
     ({ name, files, path: filePath, isDirectory }, index) =>
       isDirectory && (
         <TreeItem
@@ -87,7 +90,9 @@ export default function FolderDrawer({ open, onDrawerClose, folderStructure }) {
         defaultExpandIcon={<ChevronRightIcon />}
         sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
       >
-        {folderStructure && <RecursiveTreeItem folderStructure={folderStructure} />}
+        {folderStructure && (
+          <RecursiveTreeItem folderStructure={folderStructure} />
+        )}
       </TreeView>
     </Drawer>
   )
