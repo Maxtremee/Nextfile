@@ -19,7 +19,7 @@ export default function MainWrapper({ folderStructure }) {
     setDrawerOpen(false)
   }
 
-  const handleChangeView = (event, value) => {
+  const handleChangeView = (_event, value) => {
     setView(value)
   }
 

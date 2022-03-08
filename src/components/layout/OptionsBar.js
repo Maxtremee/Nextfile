@@ -11,7 +11,7 @@ const optionsBarStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  backgroundColor: "rgba(0, 0, 0, 0.04)",
+  backgroundColor: "#0000000a",
 }
 
 const itemStyle = {
