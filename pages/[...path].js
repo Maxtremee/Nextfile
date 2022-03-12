@@ -8,7 +8,9 @@ export default function Path(props) {
 
 export async function getServerSideProps(context) {
   const { locales } = context
+  console.time('subpage')
   const folderStructure = await readFolderStructure(locales)
+  console.timeEnd('subpage')
 
   return {
     props: {

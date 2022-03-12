@@ -1,10 +1,18 @@
-import PropTypes from "prop-types"
+import Router from "next/router"
 import Head from "next/head"
+import PropTypes from "prop-types"
 import { ThemeProvider } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
 import { CacheProvider } from "@emotion/react"
 import theme from "../src/theme"
 import createEmotionCache from "../src/createEmotionCache"
+import NProgress from "nprogress"
+import "../styles/nprogress.css"
+
+//Binding route events to show loading bar
+Router.events.on("routeChangeStart", () => NProgress.start())
+Router.events.on("routeChangeComplete", () => NProgress.done())
+Router.events.on("routeChangeError", () => NProgress.done())
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

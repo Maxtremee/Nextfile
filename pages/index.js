@@ -8,7 +8,9 @@ export default function Index(props) {
 
 export async function getServerSideProps(context) {
   const { locales } = context
+  console.time('main')
   const folderStructure = await readFolderStructure(locales)
+  console.timeEnd('main')
 
   return {
     props: {
