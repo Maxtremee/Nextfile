@@ -1,4 +1,4 @@
-import React from "react"
+import path from "path"
 import { useRouter } from "next/router"
 import { Card, CardHeader, Typography, Box } from "@mui/material"
 import { Folder } from "@mui/icons-material"
@@ -31,7 +31,8 @@ const actionsStyle = {
   alignItems: "center",
 }
 
-export default function FileCard({ name, path, details, isDirectory }) {
+export default function FileCard({ name, path: filePath, details, isDirectory }) {
+  const fullPath = path.join(filePath, name)
   const { size } = details
 
   const router = useRouter()
@@ -62,7 +63,7 @@ export default function FileCard({ name, path, details, isDirectory }) {
             name={name}
             isDirectory={isDirectory}
             details={details}
-            path={path}
+            path={filePath}
           />
         </Box>
       )}

@@ -14,5 +14,6 @@ export async function getStaticProps(context) {
     props: {
       folderStructure
     },
+    revalidate: 60
   }
 }

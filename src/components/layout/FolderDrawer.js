@@ -45,12 +45,12 @@ const CenterLabel = ({ name, path: filePath }) => {
 const RecursiveTreeItem = ({ folderStructure }) =>
   folderStructure &&
   folderStructure?.map(
-    ({ name, files, path: filePath, isDirectory }, index) =>
+    ({ name, files, path: filePath, isDirectory }) =>
       isDirectory && (
         <TreeItem
           label={<CenterLabel name={name} path={filePath} />}
-          nodeId={`${index}-${path}`}
-          key={`${index}-${path}`}
+          nodeId={`${filePath}-${name}`}
+          key={`${filePath}-${name}`}
         >
           <RecursiveTreeItem folderStructure={files} />
         </TreeItem>

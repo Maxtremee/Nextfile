@@ -1,3 +1,3 @@
 export default function handler (_req, res) {
-  res.status(200).send("FileNext says hello!")
+  res.status(200).send("Nextfile says hello!")
 }

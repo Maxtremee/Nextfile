@@ -1,4 +1,4 @@
-import React from "react"
+import path from "path"
 import { useRouter } from "next/router"
 import {
   ListItem,
@@ -10,7 +10,8 @@ import { Folder } from "@mui/icons-material"
 import prettyBytes from "pretty-bytes"
 import ActionButtons from "../ActionButtons"
 
-export default function FileEntry({ name, path, details, isDirectory }) {
+export default function FileEntry({ name, path: filePath, details, isDirectory }) {
+  const fullPath = path.join(filePath, name)
   const { size } = details
 
   const router = useRouter()
