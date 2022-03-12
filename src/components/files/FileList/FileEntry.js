@@ -30,7 +30,7 @@ export default function FileEntry({ name, path: filePath, details, isDirectory }
           name={name}
           isDirectory={isDirectory}
           details={details}
-          path={path}
+          path={filePath}
         />
       }
     >

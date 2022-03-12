@@ -3,7 +3,7 @@ import fsSync from "fs"
 import path from "path"
 import archiver from "archiver"
 
-const dir = process.env.FOLDER
+const dir = "files"
 
 export default async function handler(req, res) {
   const filePath = path.join(dir, ...req.query.path)

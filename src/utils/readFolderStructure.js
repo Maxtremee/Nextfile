@@ -1,7 +1,7 @@
 import fs from "fs/promises"
 import path from "path/posix"
 
-const dir = process.env.FOLDER
+const dir = 'files'
 
 function dateToLocale(date, locales) {
   if (locales) {

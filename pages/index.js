@@ -6,7 +6,7 @@ export default function Index(props) {
   return <Main {...props}  />
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const { locales } = context
   const folderStructure = await readFolderStructure(locales)
 
@@ -14,6 +14,5 @@ export async function getStaticProps(context) {
     props: {
       folderStructure
     },
-    revalidate: 60
   }
 }

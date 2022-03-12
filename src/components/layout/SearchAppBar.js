@@ -87,9 +87,9 @@ export default function SearchAppBar({ open, onDrawerOpen }) {
           component="div"
           sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
         >
-          Files
+          Nextfile
         </Typography>
-        <Search>
+        {/* <Search>
           <SearchIconWrapper>
             <SearchIcon />
           </SearchIconWrapper>
@@ -97,7 +97,7 @@ export default function SearchAppBar({ open, onDrawerOpen }) {
             placeholder="Search…"
             inputProps={{ "aria-label": "search" }}
           />
-        </Search>
+        </Search> */}
       </Toolbar>
     </AppBar>
   )
