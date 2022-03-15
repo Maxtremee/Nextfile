@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material"
 import FileCard from "./FileCard"
 
-export default function FileGrid({ folderStructure }) {
+export default function FileGrid({ files }) {
   return (
     <Grid
       container
@@ -10,10 +10,10 @@ export default function FileGrid({ folderStructure }) {
       justifyContent="flex-start"
       alignItems="flex-start"
     >
-      {folderStructure &&
-        folderStructure.map((file) => (
+      {files &&
+        files.map((file) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={file?.name}>
-            <FileCard {...file} />
+            <FileCard file={file} />
           </Grid>
         ))}
     </Grid>

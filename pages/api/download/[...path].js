@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const fileName = path.basename(filePath)
 
   if (fileDetails.isDirectory()) {
-    // generate zip
+    // if directory generate zip
     const zipName = `${fileName}.zip`
     const output = fsSync.createWriteStream(zipName)
     const archive = archiver("zip")
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     readStream.pipe(res)
     fs.rm(zipName)
   } else {
-    // send file
+    // if file just send it
     res.writeHead(200, {
       "Content-Type": "application/octet-stream; charset=utf-8",
       "Content-Disposition": `attachment; filename="${fileName}"; filename*="${fileName}"`,

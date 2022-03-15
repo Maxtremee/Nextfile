@@ -1,6 +1,7 @@
 import React from "react"
+import path from "path"
 import Main from "../src/components/layout/Main"
-import readFolderStructure from "../src/utils/readFolderStructure"
+import readDirectory from "../src/utils/readDirectory"
 
 export default function Path(props) {
   return <Main {...props} />
@@ -8,13 +9,12 @@ export default function Path(props) {
 
 export async function getServerSideProps(context) {
   const { locales } = context
-  console.time('subpage')
-  const folderStructure = await readFolderStructure(locales)
-  console.timeEnd('subpage')
+  const { path: filePath } = context.params
+  const files = await readDirectory(path.join(...filePath), true, locales)
 
   return {
     props: {
-      folderStructure
+      files
     },
   }
 }

@@ -4,15 +4,11 @@ import { Box, IconButton, Tooltip } from "@mui/material"
 import { Download, MoreVert, Share } from "@mui/icons-material"
 import DetailsModal from "./DetailsModal"
 
-export default function ActionButtons({
-  name,
-  path: filePath,
-  details,
-  isDirectory,
-}) {
-  const fullPath = path.join(filePath, name)
-  const encodedLink = encodeURI(`/api/download/${fullPath}`)
-  const defaultShareTooltipText = "Share"
+const defaultShareTooltipText = "Share"
+
+export default function ActionButtons({ file }) {
+  const { href } = file
+  const encodedLink = encodeURI(path.join('/api/download/', href))
 
   const [modalOpen, setModalOpen] = useState(false)
   const [shareText, setShareText] = useState(defaultShareTooltipText)
@@ -32,7 +28,10 @@ export default function ActionButtons({
   return (
     <>
       <Box sx={{ display: "inline-block" }}>
-        <Tooltip title={shareText} onClose={() => setShareText(defaultShareTooltipText)}>
+        <Tooltip
+          title={shareText}
+          onClose={() => setShareText(defaultShareTooltipText)}
+        >
           <IconButton onClick={copyLink}>
             <Share />
           </IconButton>
@@ -48,13 +47,7 @@ export default function ActionButtons({
           </IconButton>
         </Tooltip>
       </Box>
-      <DetailsModal
-        details={details}
-        name={name}
-        open={modalOpen}
-        isDirectory={isDirectory}
-        onClose={handleModalClose}
-      />
+      <DetailsModal file={file} open={modalOpen} onClose={handleModalClose} />
     </>
   )
 }

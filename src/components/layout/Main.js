@@ -7,9 +7,9 @@ import DrawerHeader from "./DrawerHeader"
 import FileView from "../files/FileView"
 import OptionsBar from "./OptionsBar"
 
-export default function MainWrapper({ folderStructure }) {
+export default function MainWrapper({ files }) {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [view, setView] = useState("grid")
+  const [view, setView] = useState("list")
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true)
@@ -32,13 +32,13 @@ export default function MainWrapper({ folderStructure }) {
       />
       <FolderDrawer
         open={drawerOpen}
-        folderStructure={folderStructure}
+        files={files}
         onDrawerClose={handleDrawerClose}
       />
       <MainStyled open={drawerOpen}>
         <DrawerHeader />
         <OptionsBar view={view} onChangeView={handleChangeView} />
-        <FileView view={view} folderStructure={folderStructure} />
+        <FileView view={view} files={files} />
       </MainStyled>
     </Box>
   )

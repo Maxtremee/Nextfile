@@ -1,6 +1,6 @@
 import React from "react"
 import Main from "../src/components/layout/Main"
-import readFolderStructure from "../src/utils/readFolderStructure"
+import readDirectory from "../src/utils/readDirectory"
 
 export default function Index(props) {
   return <Main {...props}  />
@@ -8,13 +8,11 @@ export default function Index(props) {
 
 export async function getServerSideProps(context) {
   const { locales } = context
-  console.time('main')
-  const folderStructure = await readFolderStructure(locales)
-  console.timeEnd('main')
+  const files = await readDirectory("", true, locales)
 
   return {
     props: {
-      folderStructure
+      files
     },
   }
 }

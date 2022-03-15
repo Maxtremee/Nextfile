@@ -19,14 +19,17 @@ const boxStyle = {
   width: 400,
 }
 
-export default function FileDetails({
-  details,
-  isDirectory,
-  name,
-  open,
-  onClose,
-}) {
-  const { birthtime, modified, changed, accessed, size, extension } = details
+export default function FileDetails({ file, open, onClose }) {
+  const {
+    name,
+    isDirectory,
+    birthtime,
+    modified,
+    changed,
+    accessed,
+    size,
+    extension,
+  } = file
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={boxStyle}>

@@ -1,17 +1,16 @@
 import { Divider, List } from "@mui/material"
 import FileEntry from "./FileEntry"
 
-export default function FileList({ folderStructure }) {
+export default function FileList({ files }) {
   return (
     <List>
       <Divider />
-      {folderStructure &&
-        folderStructure.map((file) => (
-          <>
-            <FileEntry key={file?.name} {...file} />
-            <Divider />
-          </>
-        ))}
+      {files?.map?.((file) => (
+        <>
+          <FileEntry key={file.name} file={file} />
+          <Divider />
+        </>
+      ))}
     </List>
   )
 }

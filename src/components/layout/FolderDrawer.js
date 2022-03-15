@@ -1,24 +1,16 @@
-import path from "path"
-import { styled, useTheme } from "@mui/material/styles"
+import { useRouter } from "next/router"
+import useSWR from "swr"
+import { useTheme } from "@mui/material/styles"
 import { Drawer, IconButton, Divider, Box, Tooltip } from "@mui/material"
 import { TreeView, TreeItem } from "@mui/lab"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import DrawerHeader from "./DrawerHeader"
 import { drawerWidth } from "./constants"
-import { useRouter } from "next/router"
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}))
-
-const CenterLabel = ({ name, path: filePath }) => {
+const CenterLabel = ({ name, href }) => {
   const router = useRouter()
   return (
     <Box
@@ -32,7 +24,7 @@ const CenterLabel = ({ name, path: filePath }) => {
       <Tooltip title="Go to">
         <IconButton
           onClick={() => {
-            router.push(path.join(filePath, name))
+            router.push(href)
           }}
         >
           <ArrowForwardIcon />
@@ -42,23 +34,30 @@ const CenterLabel = ({ name, path: filePath }) => {
   )
 }
 
-const RecursiveTreeItem = ({ folderStructure }) =>
-  folderStructure &&
-  folderStructure?.map(
-    ({ name, files, path: filePath, isDirectory }) =>
-      isDirectory && (
-        <TreeItem
-          label={<CenterLabel name={name} path={filePath} />}
-          nodeId={`${filePath}-${name}`}
-          key={`${filePath}-${name}`}
-        >
-          <RecursiveTreeItem folderStructure={files} />
-        </TreeItem>
-      )
+const RecursiveTreeItem = ({ directories }) =>
+  directories?.map?.(({ name, directories, href }) =>
+    directories.length > 0 ? (
+      <TreeItem
+        label={<CenterLabel name={name} href={href} />}
+        nodeId={`${href}-${name}`}
+        key={`${href}-${name}`}
+      >
+        <RecursiveTreeItem directories={directories} />
+      </TreeItem>
+    ) : (
+      <TreeItem
+        label={<CenterLabel name={name} href={href} />}
+        nodeId={`${href}-${name}`}
+        key={`${href}-${name}`}
+      />
+    )
   )
 
-export default function FolderDrawer({ open, onDrawerClose, folderStructure }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json())
+
+export default function FolderDrawer({ open, onDrawerClose }) {
   const theme = useTheme()
+  const { data } = useSWR("/api/structure", fetcher)
 
   return (
     <Drawer
@@ -84,16 +83,16 @@ export default function FolderDrawer({ open, onDrawerClose, folderStructure }) {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <TreeView
-        aria-label="file system navigator"
-        defaultCollapseIcon={<ExpandMoreIcon />}
-        defaultExpandIcon={<ChevronRightIcon />}
-        sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
-      >
-        {folderStructure && (
-          <RecursiveTreeItem folderStructure={folderStructure} />
-        )}
-      </TreeView>
+      {data && (
+        <TreeView
+          aria-label="file system navigator"
+          defaultCollapseIcon={<ExpandMoreIcon />}
+          defaultExpandIcon={<ChevronRightIcon />}
+          sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
+        >
+          <RecursiveTreeItem directories={data} />
+        </TreeView>
+      )}
     </Drawer>
   )
 }

@@ -22,6 +22,9 @@ export default function OptionsBar({ view, onChangeView }) {
   const { query } = useRouter()
   const { path: location } = query
 
+  const getRelativeHref = (index) =>
+    path.join("/", ...location?.slice(0, index + 1))
+
   return (
     <Box sx={optionsBarStyle}>
       <Box sx={itemStyle}>
@@ -29,17 +32,16 @@ export default function OptionsBar({ view, onChangeView }) {
           <Link underline="hover" color="inherit" href="/">
             <HomeIcon />
           </Link>
-          {location &&
-            location?.map((value, index) => (
-              <Link
-                key={path}
-                underline="hover"
-                color="inherit"
-                href={path.join(...location?.slice(0, index + 1))}
-              >
-                {value}
-              </Link>
-            ))}
+          {location?.map?.((value, index) => (
+            <Link
+              key={getRelativeHref(index)}
+              underline="hover"
+              color="inherit"
+              href={getRelativeHref(index)}
+            >
+              {value}
+            </Link>
+          ))}
         </Breadcrumbs>
       </Box>
       <Box sx={itemStyle}>
@@ -49,11 +51,11 @@ export default function OptionsBar({ view, onChangeView }) {
           exclusive
           aria-label="file view"
         >
-          <ToggleButton value="grid" aria-label="grid view">
-            <GridViewIcon />
-          </ToggleButton>
           <ToggleButton value="list" aria-label="list view">
             <ViewListIcon />
+          </ToggleButton>
+          <ToggleButton value="grid" aria-label="grid view">
+            <GridViewIcon />
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>

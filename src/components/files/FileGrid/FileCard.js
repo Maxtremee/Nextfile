@@ -31,15 +31,13 @@ const actionsStyle = {
   alignItems: "center",
 }
 
-export default function FileCard({ name, path: filePath, details, isDirectory }) {
-  const fullPath = path.join(filePath, name)
-  const { size } = details
-
+export default function FileCard({ file }) {
+  const { name, isDirectory, size, href } = file
   const router = useRouter()
 
   const goToDirectory = () => {
     if (isDirectory) {
-      router.push(fullPath)
+      router.push(href)
     }
   }
 
@@ -47,26 +45,19 @@ export default function FileCard({ name, path: filePath, details, isDirectory })
     <Card>
       <CardHeader
         sx={headerStyle(isDirectory)}
-        avatar={isDirectory && <Folder />}
+        avatar={file.isDirectory && <Folder />}
         title={
           <Typography variant="body1" onClick={goToDirectory}>
             {name}
           </Typography>
         }
       />
-      {details && (
-        <Box sx={actionsStyle}>
-          <Typography variant="body2" color="text.secondary">
-            {prettyBytes(size)}
-          </Typography>
-          <ActionButtons
-            name={name}
-            isDirectory={isDirectory}
-            details={details}
-            path={filePath}
-          />
-        </Box>
-      )}
+      <Box sx={actionsStyle}>
+        <Typography variant="body2" color="text.secondary">
+          {prettyBytes(size)}
+        </Typography>
+        <ActionButtons file={file} />
+      </Box>
     </Card>
   )
 }

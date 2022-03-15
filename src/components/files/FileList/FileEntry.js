@@ -10,29 +10,21 @@ import { Folder } from "@mui/icons-material"
 import prettyBytes from "pretty-bytes"
 import ActionButtons from "../ActionButtons"
 
-export default function FileEntry({ name, path: filePath, details, isDirectory }) {
-  const fullPath = path.join(filePath, name)
-  const { size } = details
+export default function FileEntry({ file }) {
+  const { name, isDirectory, size, href } = file
 
   const router = useRouter()
 
   const goToDirectory = () => {
     if (isDirectory) {
-      router.push(fullPath)
+      router.push(href)
     }
   }
 
   return (
     <ListItem
       sx={{ paddingRight: 0 }}
-      secondaryAction={
-        <ActionButtons
-          name={name}
-          isDirectory={isDirectory}
-          details={details}
-          path={filePath}
-        />
-      }
+      secondaryAction={<ActionButtons file={file} />}
     >
       <ListItemButton onClick={goToDirectory}>
         {isDirectory && (
