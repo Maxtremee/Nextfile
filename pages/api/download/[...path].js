@@ -2,6 +2,7 @@ import fs from "fs/promises"
 import fsSync from "fs"
 import path from "path"
 import archiver from "archiver"
+import mime from "mime-types"
 
 const dir = "files"
 
@@ -29,9 +30,9 @@ export default async function handler(req, res) {
     fs.rm(zipName)
   } else {
     // if file just send it
+    const mimeType = mime.contentType(fileName)
     res.writeHead(200, {
-      "Content-Type": "application/octet-stream; charset=utf-8",
-      "Content-Disposition": `attachment; filename="${fileName}"; filename*="${fileName}"`,
+      "Content-Type": mimeType || "application/octet-stream; charset=utf-8",
       "Content-Length": fileDetails.size,
     })
     const readStream = fsSync.createReadStream(filePath)
