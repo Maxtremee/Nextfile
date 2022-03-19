@@ -1,5 +1,5 @@
 import path from "path"
-import readDirectory from "../../../src/utils/readDirectory"
+import readDirectory from "../../../src/backend/readDirectory"
 
 export default async function handler(req, res) {
   const { path: filePath, withDetails } = req.query

@@ -1,9 +1,9 @@
 import React from "react"
-import Main from "../src/components/layout/Main"
-import readDirectory from "../src/utils/readDirectory"
+import Nextfile from "../../src/frontend/Nextfile"
+import readDirectory from "../../src/backend/readDirectory"
 
 export default function Index(props) {
-  return <Main {...props}  />
+  return <Nextfile {...props}  />
 }
 
 export async function getServerSideProps(context) {

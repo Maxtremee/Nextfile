@@ -1,14 +1,14 @@
 import { useState } from "react"
-import path from "path"
+import { useRouter } from "next/router"
 import { Box, IconButton, Tooltip } from "@mui/material"
-import { Download, MoreVert, Share } from "@mui/icons-material"
+import { Archive, MoreVert, Share } from "@mui/icons-material"
 import DetailsModal from "./DetailsModal"
-
-const defaultShareTooltipText = "Share"
+import getDownloadLink from "../utils/getDownloadLink"
+import { defaultShareTooltipText } from "../constants"
 
 export default function ActionButtons({ file }) {
-  const { href } = file
-  const encodedLink = encodeURI(path.join('/api/download/', href))
+  const { href, isDirectory } = file
+  const router = useRouter()
 
   const [modalOpen, setModalOpen] = useState(false)
   const [shareText, setShareText] = useState(defaultShareTooltipText)
@@ -16,18 +16,25 @@ export default function ActionButtons({ file }) {
   const handleModalOpen = () => setModalOpen(true)
   const handleModalClose = () => setModalOpen(false)
 
-  const downloadFile = () => {
-    window.open(encodedLink)
+  const downloadFolder = () => {
+    router.push(getDownloadLink(href, true))
   }
 
   const copyLink = () => {
-    navigator.clipboard.writeText(`${location.host}${encodedLink}`)
+    navigator.clipboard.writeText(`${location.host}${getDownloadLink(href, isDirectory)}`)
     setShareText("Link copied!")
   }
 
   return (
     <>
       <Box sx={{ display: "inline-block" }}>
+        {isDirectory && (
+          <Tooltip title="Download folder as zip">
+            <IconButton onClick={downloadFolder}>
+              <Archive />
+            </IconButton>
+          </Tooltip>
+        )}
         <Tooltip
           title={shareText}
           onClose={() => setShareText(defaultShareTooltipText)}
@@ -39,11 +46,6 @@ export default function ActionButtons({ file }) {
         <Tooltip title="Details">
           <IconButton onClick={handleModalOpen}>
             <MoreVert />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Download">
-          <IconButton onClick={downloadFile}>
-            <Download />
           </IconButton>
         </Tooltip>
       </Box>

@@ -8,8 +8,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import DrawerHeader from "./DrawerHeader"
-import { drawerWidth } from "./constants"
-import fetcher from "../../utils/fetcher"
+import { drawerWidth } from "../constants"
+import fetcher from "../shared/fetcher"
 import { useAppContext } from "../AppContext"
 
 const CenterLabel = ({ name, href }) => {

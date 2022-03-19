@@ -8,7 +8,7 @@ import theme from "../src/theme"
 import createEmotionCache from "../src/createEmotionCache"
 import NProgress from "nprogress"
 import "../styles/nprogress.css"
-import AppContext from "../src/components/AppContext"
+import AppContext from "../src/frontend/AppContext"
 
 //Binding route events to show loading bar
 Router.events.on("routeChangeStart", () => NProgress.start())

@@ -1,10 +1,10 @@
 import React from "react"
 import path from "path"
-import Main from "../src/components/layout/Main"
-import readDirectory from "../src/utils/readDirectory"
+import Nextfile from "../../src/frontend/Nextfile"
+import readDirectory from "../../src/backend/readDirectory"
 
 export default function Path(props) {
-  return <Main {...props} />
+  return <Nextfile {...props} />
 }
 
 export async function getServerSideProps(context) {
@@ -14,7 +14,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      files
+      files,
     },
   }
 }
