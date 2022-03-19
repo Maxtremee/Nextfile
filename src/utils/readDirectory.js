@@ -2,12 +2,27 @@ import fs from "fs/promises"
 import path from "path/posix"
 import getFolderSize from "get-folder-size"
 import { mainDir } from "./constants"
+import sortAlphabetically from "./sortAlphabetically"
 
 function dateToLocale(date, locales) {
   if (locales) {
     return new Date(date).toLocaleDateString(locales)
   }
   return date
+}
+
+async function getDirectorySize(dirPath) {
+  try {
+    const size = await getFolderSize.strict(dirPath)
+    return size
+  } catch {
+    try {
+      const size = await getFolderSize.loose(dirPath)
+      return size
+    } catch {
+      return 0
+    }
+  }
 }
 
 export default async function readDirectory(
@@ -30,9 +45,11 @@ export default async function readDirectory(
           try {
             const { birthtimeMs, mtimeMs, ctimeMs, atimeMs, size } =
               await fs.stat(path.join(mainDir, details.href))
-            const actualSize = details.isDirectory
-              ? await getFolderSize.loose(path.join(mainDir, details.href))
-              : size
+            let actualSize = size
+            if (details.isDirectory) {
+              actualSize = await getDirectorySize(path.join(mainDir, details.href))
+            }
+
             details = {
               ...details,
               size: actualSize,
@@ -43,16 +60,22 @@ export default async function readDirectory(
               accessed: dateToLocale(atimeMs, locales),
             }
           } catch {
-            files.push(details)
+            continue
           }
         }
         files.push(details)
       }
     } catch (e) {
       console.error(e)
+      return
     }
   } catch (e) {
     console.error(e)
+    return
   }
-  return files.sort((a) => (a?.isDirectory ? -1 : 1))
+
+  const directories = files.filter((a) => a?.isDirectory).sort(sortAlphabetically)
+  const onlyFiles = files.filter((a) => !a?.isDirectory).sort(sortAlphabetically)
+  
+  return [...directories, ...onlyFiles]
 }

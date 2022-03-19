@@ -32,7 +32,7 @@ export default function FileEntry({ file }) {
             <Folder />
           </ListItemIcon>
         )}
-        <ListItemText primary={name} secondary={prettyBytes(size)} />
+        <ListItemText primary={name} secondary={size ? prettyBytes(size) : null} />
       </ListItemButton>
     </ListItem>
   )
