@@ -74,8 +74,8 @@ export default async function readDirectory(
     return
   }
 
-  const directories = files.filter((a) => a?.isDirectory).sort(sortAlphabetically)
-  const onlyFiles = files.filter((a) => !a?.isDirectory).sort(sortAlphabetically)
+  const directories = files.filter((a) => a?.isDirectory).sort((a, b) => sortAlphabetically(a.name, b.name))
+  const onlyFiles = files.filter((a) => !a?.isDirectory).sort((a, b) => sortAlphabetically(a.name, b.name))
   
   return [...directories, ...onlyFiles]
 }
