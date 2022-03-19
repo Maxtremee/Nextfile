@@ -9,6 +9,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import DrawerHeader from "./DrawerHeader"
 import { drawerWidth } from "./constants"
+import fetcher from "../../utils/fetcher"
+import { useAppContext } from "../AppContext"
 
 const CenterLabel = ({ name, href }) => {
   const router = useRouter()
@@ -34,7 +36,7 @@ const CenterLabel = ({ name, href }) => {
   )
 }
 
-const RecursiveTreeItem = ({ directories }) =>
+const DirectoryTreeItems = ({ directories }) =>
   directories?.map?.(({ name, directories, href }) =>
     directories.length > 0 ? (
       <TreeItem
@@ -42,7 +44,7 @@ const RecursiveTreeItem = ({ directories }) =>
         nodeId={`${href}-${name}`}
         key={`${href}-${name}`}
       >
-        <RecursiveTreeItem directories={directories} />
+        <DirectoryTreeItems directories={directories} />
       </TreeItem>
     ) : (
       <TreeItem
@@ -53,10 +55,9 @@ const RecursiveTreeItem = ({ directories }) =>
     )
   )
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json())
-
-export default function FolderDrawer({ open, onDrawerClose }) {
+export default function FolderDrawer() {
   const theme = useTheme()
+  const { drawerOpen, setDrawerOpen } = useAppContext()
   const { data } = useSWR("/api/structure", fetcher)
 
   return (
@@ -71,10 +72,10 @@ export default function FolderDrawer({ open, onDrawerClose }) {
       }}
       variant="persistent"
       anchor="left"
-      open={open}
+      open={drawerOpen}
     >
       <DrawerHeader>
-        <IconButton onClick={onDrawerClose}>
+        <IconButton onClick={() => setDrawerOpen(false)}>
           {theme.direction === "ltr" ? (
             <ChevronLeftIcon />
           ) : (
@@ -90,7 +91,7 @@ export default function FolderDrawer({ open, onDrawerClose }) {
           defaultExpandIcon={<ChevronRightIcon />}
           sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
         >
-          <RecursiveTreeItem directories={data} />
+          <DirectoryTreeItems directories={data} />
         </TreeView>
       )}
     </Drawer>

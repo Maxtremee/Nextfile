@@ -6,24 +6,31 @@ import HomeIcon from "@mui/icons-material/Home"
 import GridViewIcon from "@mui/icons-material/GridView"
 import ViewListIcon from "@mui/icons-material/ViewList"
 import Link from "../shared/Link"
+import { useAppContext } from "../AppContext"
 
 const optionsBarStyle = {
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  backgroundColor: "#0000000a",
 }
 
 const itemStyle = {
   margin: "16px",
 }
 
-export default function OptionsBar({ view, onChangeView }) {
+export default function OptionsBar() {
   const { query } = useRouter()
   const { path: location } = query
+  const { view, setView } = useAppContext()
 
   const getRelativeHref = (index) =>
     path.join("/", ...location?.slice(0, index + 1))
+
+  const setViewValue = (_event, value) => {
+    if (value) {
+      setView(value)
+    }
+  }
 
   return (
     <Box sx={optionsBarStyle}>
@@ -47,7 +54,7 @@ export default function OptionsBar({ view, onChangeView }) {
       <Box sx={itemStyle}>
         <ToggleButtonGroup
           value={view}
-          onChange={onChangeView}
+          onChange={setViewValue}
           exclusive
           aria-label="file view"
         >

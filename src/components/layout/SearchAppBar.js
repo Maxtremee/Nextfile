@@ -7,6 +7,7 @@ import InputBase from "@mui/material/InputBase"
 import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
 import { drawerWidth } from "./constants"
+import { useAppContext } from "../AppContext"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -67,17 +68,18 @@ const AppBar = styled(MuiAppBar, {
   }),
 }))
 
-export default function SearchAppBar({ open, onDrawerOpen }) {
+export default function SearchAppBar() {
+  const { drawerOpen, setDrawerOpen } = useAppContext()
   return (
-    <AppBar position="fixed" open={open}>
+    <AppBar position="fixed" open={drawerOpen}>
       <Toolbar>
         <IconButton
           size="large"
           edge="start"
           color="inherit"
           aria-label="open drawer"
-          onClick={onDrawerOpen}
-          sx={{ mr: 2, ...(open && { display: 'none' }) }}
+          onClick={() => setDrawerOpen((open) => !open)}
+          sx={{ mr: 2, ...(drawerOpen && { display: "none" }) }}
         >
           <MenuIcon />
         </IconButton>
