@@ -1,5 +1,6 @@
 import imageExtensions from "image-extensions"
 import videoExtensions from "video-extensions"
+import audioExtensions from "audio-extensions"
 
 export default function getMediaType(extension) {
   const extensionWoDot = extension.split(".")[1]
@@ -9,6 +10,9 @@ export default function getMediaType(extension) {
   }
   if (videoExtensions.includes(extensionWoDot)) {
     return ["video", extensionWoDot]
+  }
+  if (audioExtensions.includes(extensionWoDot)) {
+    return ["audio", extensionWoDot]
   }
   return [null, extensionWoDot]
 }

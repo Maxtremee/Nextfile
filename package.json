@@ -17,6 +17,7 @@
     "@mui/lab": "^5.0.0-alpha.71",
     "@mui/material": "^5.5.0",
     "archiver": "^5.3.0",
+    "audio-extensions": "^0.0.0",
     "get-folder-size": "^3.1.0",
     "image-extensions": "^1.1.0",
     "mime-types": "^2.1.35",

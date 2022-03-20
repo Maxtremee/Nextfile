@@ -41,6 +41,14 @@ export default function MediaModal({ file, open, onClose }) {
             />
           </video>
         )}
+        {mediaType === "audio" && (
+          <audio alt={name} controls>
+            <source
+              src={getDownloadLink(href)}
+              type={`audio/${extensionWoDot}`}
+            />
+          </audio>
+        )}
       </Box>
     </Modal>
   )
