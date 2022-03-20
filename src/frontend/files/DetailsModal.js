@@ -1,9 +1,9 @@
+import Image from "next/image"
 import {
   Box,
   Modal,
   Paper,
   Table,
-  TableHead,
   TableCell,
   TableRow,
   TableBody,
@@ -19,9 +19,10 @@ const boxStyle = {
   width: 400,
 }
 
-export default function FileDetails({ file, open, onClose }) {
+export default function DetailsModal({ file, open, onClose }) {
   const {
     name,
+    href,
     isDirectory,
     birthtime,
     modified,
@@ -30,29 +31,29 @@ export default function FileDetails({ file, open, onClose }) {
     size,
     extension,
   } = file
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={boxStyle}>
         <TableContainer component={Paper}>
           <Table>
             <TableBody>
-              <TableRow
-                key={"name"}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  Name
+              <TableRow key={"name"}>
+                <TableCell variant="head">Name</TableCell>
+                <TableCell
+                  align="right"
+                  variant="head"
+                  sx={{ wordBreak: "break-all" }}
+                >
+                  {name}
                 </TableCell>
-                <TableCell align="right">{name}</TableCell>
               </TableRow>
               {!isDirectory && (
                 <TableRow
                   key={"extension"}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">
-                    Extension
-                  </TableCell>
+                  <TableCell>Extension</TableCell>
                   <TableCell align="right">{extension}</TableCell>
                 </TableRow>
               )}
@@ -60,9 +61,7 @@ export default function FileDetails({ file, open, onClose }) {
                 key={"size"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  Size
-                </TableCell>
+                <TableCell>Size</TableCell>
                 <TableCell align="right">{prettyBytes(size)}</TableCell>
               </TableRow>
 
@@ -70,36 +69,28 @@ export default function FileDetails({ file, open, onClose }) {
                 key={`birthtime`}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  Birthtime
-                </TableCell>
+                <TableCell>Birthtime</TableCell>
                 <TableCell align="right">{birthtime}</TableCell>
               </TableRow>
               <TableRow
                 key={"modified"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  Modified
-                </TableCell>
+                <TableCell>Modified</TableCell>
                 <TableCell align="right">{modified}</TableCell>
               </TableRow>
               <TableRow
                 key={"changed"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  Changed
-                </TableCell>
+                <TableCell>Changed</TableCell>
                 <TableCell align="right">{changed}</TableCell>
               </TableRow>
               <TableRow
                 key={"accessed"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
-                  Accessed
-                </TableCell>
+                <TableCell>Accessed</TableCell>
                 <TableCell align="right">{accessed}</TableCell>
               </TableRow>
             </TableBody>
