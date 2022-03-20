@@ -51,7 +51,7 @@ export default function FileCard({ file }) {
   )
 
   return (
-    <Card>
+    <Card sx={{ wordBreak: "break-all" }}>
       {isDirectory ? directoryHeader() : fileHeader()}
       <Box sx={actionsStyle}>
         <Typography variant="body2" color="text.secondary">

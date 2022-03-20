@@ -1,13 +1,10 @@
 import { useRouter } from "next/router"
 import useSWR from "swr"
-import { useTheme } from "@mui/material/styles"
 import { Drawer, IconButton, Divider, Box, Tooltip } from "@mui/material"
 import { TreeView, TreeItem } from "@mui/lab"
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import DrawerHeader from "./DrawerHeader"
 import { drawerWidth } from "../constants"
 import fetcher from "../shared/fetcher"
 import { useAppContext } from "../AppContext"
@@ -56,8 +53,7 @@ const DirectoryTreeItems = ({ directories }) =>
   )
 
 export default function FolderDrawer() {
-  const theme = useTheme()
-  const { drawerOpen, setDrawerOpen } = useAppContext()
+  const { drawerOpen } = useAppContext()
   const { data } = useSWR("/api/structure", fetcher)
 
   return (
@@ -74,15 +70,6 @@ export default function FolderDrawer() {
       anchor="left"
       open={drawerOpen}
     >
-      <DrawerHeader>
-        <IconButton onClick={() => setDrawerOpen(false)}>
-          {theme.direction === "ltr" ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </IconButton>
-      </DrawerHeader>
       <Divider />
       {data && (
         <TreeView

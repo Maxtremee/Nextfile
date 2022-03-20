@@ -79,7 +79,7 @@ export default function SearchAppBar() {
           color="inherit"
           aria-label="open drawer"
           onClick={() => setDrawerOpen((open) => !open)}
-          sx={{ mr: 2, ...(drawerOpen && { display: "none" }) }}
+          sx={{ mr: 2 }}
         >
           <MenuIcon />
         </IconButton>
