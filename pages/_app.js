@@ -1,14 +1,13 @@
 import Router from "next/router"
 import Head from "next/head"
 import PropTypes from "prop-types"
-import { ThemeProvider } from "@mui/material/styles"
+import { createTheme, ThemeProvider, useMediaQuery } from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline"
 import { CacheProvider } from "@emotion/react"
-import theme from "../src/theme"
 import createEmotionCache from "../src/createEmotionCache"
 import NProgress from "nprogress"
-import "../styles/nprogress.css"
 import AppContext from "../src/frontend/AppContext"
+import "../styles/nprogress.css"
 
 //Binding route events to show loading bar
 Router.events.on("routeChangeStart", () => NProgress.start())
@@ -21,18 +20,25 @@ const clientSideEmotionCache = createEmotionCache()
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
+  const theme = createTheme({
+    palette: {
+      mode: prefersDarkMode ? "dark" : "light",
+    },
+  })
+
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
         <CssBaseline />
         <AppContext>
           <Component {...pageProps} />
         </AppContext>
-      </ThemeProvider>
-    </CacheProvider>
+      </CacheProvider>
+    </ThemeProvider>
   )
 }
 
