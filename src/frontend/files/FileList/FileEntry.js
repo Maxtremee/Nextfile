@@ -14,35 +14,29 @@ import getDownloadLink from "../../utils/getDownloadLink"
 export default function FileEntry({ file }) {
   const { name, isDirectory, size, href } = file
 
-  const listItemButtonProps = () => {
-    if (!isDirectory) {
-      return {
-        component: "a",
-        href: getDownloadLink(href),
-        target: "_blank",
-      }
-    }
-  }
+  const fileListItemButton = () => (
+    <ListItemButton component="a" href={getDownloadLink(href)} target="_blank">
+      <ListItemText primary={name} secondary={prettyBytes(size)} />
+    </ListItemButton>
+  )
 
-  const renderListItem = () => (
-    <ListItem sx={{ paddingRight: 0 }} divider>
-      <ListItemButton {...listItemButtonProps()}>
-        {isDirectory && (
-          <ListItemIcon>
-            <Folder />
-          </ListItemIcon>
-        )}
+  const directoryListItemButton = () => (
+    <Link href={href}>
+      <ListItemButton>
+        <ListItemIcon>
+          <Folder />
+        </ListItemIcon>
         <ListItemText primary={name} secondary={prettyBytes(size)} />
       </ListItemButton>
+    </Link>
+  )
+
+  return (
+    <ListItem sx={{ paddingRight: 0 }} divider>
+      {isDirectory ? directoryListItemButton() : fileListItemButton()}
       <ListItemSecondaryAction>
         <ActionButtons file={file} />
       </ListItemSecondaryAction>
     </ListItem>
-  )
-
-  return isDirectory ? (
-    <Link href={href}>{renderListItem()}</Link>
-  ) : (
-    renderListItem()
   )
 }

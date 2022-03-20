@@ -14,7 +14,7 @@ const headerStyle = (theme) => ({
     backgroundColor: theme.palette.divider,
   },
   textDecoration: "none",
-  color: theme.palette.text.primary
+  color: theme.palette.text.primary,
 })
 
 const actionsStyle = {
@@ -30,24 +30,29 @@ export default function FileCard({ file }) {
   const { name, isDirectory, size, href } = file
   const theme = useTheme()
 
-  const cardHeaderProps = () => {
-    if (!isDirectory) {
-      return {
-        component: "a",
-        href: getDownloadLink(href),
-        target: "_blank",
-      }
-    }
-  }
+  const fileHeader = () => (
+    <CardHeader
+      sx={headerStyle(theme)}
+      title={<Typography variant="body1">{name}</Typography>}
+      component="a"
+      href={getDownloadLink(href)}
+      target="_blank"
+    />
+  )
 
-  const renderCard = () => (
-    <Card>
+  const directoryHeader = () => (
+    <Link href={href}>
       <CardHeader
         sx={headerStyle(theme)}
         avatar={file.isDirectory && <Folder />}
         title={<Typography variant="body1">{name}</Typography>}
-        {...cardHeaderProps()}
       />
+    </Link>
+  )
+
+  return (
+    <Card>
+      {isDirectory ? directoryHeader() : fileHeader()}
       <Box sx={actionsStyle}>
         <Typography variant="body2" color="text.secondary">
           {prettyBytes(size)}
@@ -55,11 +60,5 @@ export default function FileCard({ file }) {
         <ActionButtons file={file} />
       </Box>
     </Card>
-  )
-
-  return isDirectory ? (
-    <Link href={href}>{renderCard()}</Link>
-  ) : (
-    renderCard()
   )
 }
