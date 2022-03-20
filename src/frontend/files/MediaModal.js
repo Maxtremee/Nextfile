@@ -1,8 +1,4 @@
-import {
-  Box,
-  Modal,
-  Paper,
-} from "@mui/material"
+import { Box, Modal, Paper } from "@mui/material"
 import getDownloadLink from "../utils/getDownloadLink"
 import getMediaType from "../utils/getMediaType"
 
@@ -13,12 +9,13 @@ const boxStyle = {
   transform: "translate(-50%, -50%)",
 }
 
+const videoStyle = {
+  height: 500,
+  width: 500,
+}
+
 export default function MediaModal({ file, open, onClose }) {
-  const {
-    name,
-    href,
-    extension,
-  } = file
+  const { name, href, extension } = file
 
   const [mediaType, extensionWoDot] = getMediaType(extension)
 
@@ -34,12 +31,14 @@ export default function MediaModal({ file, open, onClose }) {
           />
         )}
         {mediaType === "video" && (
-          <video alt={name} width="100%" height="100%" controls>
-            <source
-              src={getDownloadLink(href)}
-              type={`video/${extensionWoDot}`}
-            />
-          </video>
+          <Box sx={videoStyle}>
+            <video alt={name} width="100%" height="100%" controls>
+              <source
+                src={getDownloadLink(href)}
+                type={`video/${extensionWoDot}`}
+              />
+            </video>
+          </Box>
         )}
         {mediaType === "audio" && (
           <audio alt={name} controls>
