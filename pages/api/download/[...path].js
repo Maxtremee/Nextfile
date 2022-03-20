@@ -8,14 +8,18 @@ import mime from "mime-types"
 const dir = "files"
 
 export default async function handler(req, res) {
+  const pathArr = req?.query?.path
+  if (!pathArr) {
+    res.status(404).send()
+    return
+  }
   try {
     const filePath = path.join(dir, ...req?.query?.path)
-    console.log(filePath)
     try {
       await fs.access(filePath, constants.R_OK)
     } catch (e) {
       console.error(e)
-      res.status(404).send()
+      res.status(404).send("")
       return
     }
     const fileDetails = await fs.stat(filePath)
@@ -50,6 +54,6 @@ export default async function handler(req, res) {
     }
   } catch (e) {
     console.error(e)
-    res.status(500).send()
+    res.status(500).send("")
   }
 }
