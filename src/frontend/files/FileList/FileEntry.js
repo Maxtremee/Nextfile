@@ -9,7 +9,6 @@ import {
 import Folder from "@mui/icons-material/Folder"
 import prettyBytes from "pretty-bytes"
 import ActionButtons from "../ActionButtons"
-import getBrowserLink from "../../utils/getBrowserLink"
 import getDownloadLink from "../../utils/getDownloadLink"
 
 export default function FileEntry({ file }) {
@@ -42,7 +41,7 @@ export default function FileEntry({ file }) {
   )
 
   return isDirectory ? (
-    <Link href={getBrowserLink(href)}>{renderListItem()}</Link>
+    <Link href={href}>{renderListItem()}</Link>
   ) : (
     renderListItem()
   )

@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import { useAppContext } from "../AppContext"
 import FileGrid from "./FileGrid"
@@ -10,10 +11,11 @@ const ViewWrapper = styled("div")(({ theme }) => ({
 
 export default function FileView({ files }) {
   const { view } = useAppContext()
-  
+
   return (
     <ViewWrapper>
-      {view === "grid" ? <FileGrid files={files} /> : <FileList files={files} />}
+      {files.length && view === "grid" ? <FileGrid files={files} /> : <FileList files={files} />}
+      {!files.length && <Box display="flex" justifyContent="center"><Typography variant="h5">Empty directory</Typography></Box>}
     </ViewWrapper>
   )
 }

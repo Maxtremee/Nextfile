@@ -10,12 +10,11 @@ export default function FileGrid({ files }) {
       justifyContent="flex-start"
       alignItems="flex-start"
     >
-      {files &&
-        files.map((file) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={file?.name}>
-            <FileCard file={file} />
-          </Grid>
-        ))}
+      {files?.map((file) => (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={file?.name}>
+          <FileCard file={file} />
+        </Grid>
+      ))}
     </Grid>
   )
 }

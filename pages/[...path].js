@@ -1,7 +1,7 @@
 import React from "react"
 import path from "path"
-import Nextfile from "../../src/frontend/Nextfile"
-import readDirectory from "../../src/backend/readDirectory"
+import Nextfile from "../src/frontend/Nextfile"
+import readDirectory from "../src/backend/readDirectory"
 
 export default function Path(props) {
   return <Nextfile {...props} />

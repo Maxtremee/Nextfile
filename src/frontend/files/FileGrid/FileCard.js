@@ -1,11 +1,9 @@
 import Link from "next/link"
-import { useRouter } from "next/router"
 import { useTheme } from "@mui/material/styles"
 import { Card, CardHeader, Typography, Box } from "@mui/material"
 import { Folder } from "@mui/icons-material"
 import prettyBytes from "pretty-bytes"
 import ActionButtons from "../ActionButtons"
-import getBrowserLink from "../../utils/getBrowserLink"
 import getDownloadLink from "../../utils/getDownloadLink"
 
 const headerStyle = (theme) => ({
@@ -30,16 +28,7 @@ const actionsStyle = {
 
 export default function FileCard({ file }) {
   const { name, isDirectory, size, href } = file
-  const router = useRouter()
   const theme = useTheme()
-
-  // const handleClick = () => {
-  //   if (isDirectory) {
-  //     router.push(getBrowserLink(href))
-  //   } else {
-  //     window.open(getDownloadLink(href))
-  //   }
-  // }
 
   const cardHeaderProps = () => {
     if (!isDirectory) {
@@ -69,7 +58,7 @@ export default function FileCard({ file }) {
   )
 
   return isDirectory ? (
-    <Link href={getBrowserLink(href)}>{renderCard()}</Link>
+    <Link href={href}>{renderCard()}</Link>
   ) : (
     renderCard()
   )

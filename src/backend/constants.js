@@ -1,1 +1,1 @@
-export const mainDir = "public/files"
+export const mainDir = "files"
