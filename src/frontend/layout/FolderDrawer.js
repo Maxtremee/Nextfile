@@ -8,6 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { drawerWidth } from "../constants"
 import fetcher from "../shared/fetcher"
 import { useAppContext } from "../AppContext"
+import { Home } from "@mui/icons-material"
 
 const CenterLabel = ({ name, href }) => {
   const router = useRouter()
@@ -77,8 +78,16 @@ export default function FolderDrawer() {
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
           sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
+          defaultExpanded={["home"]}
         >
-          <DirectoryTreeItems directories={data} />
+          <TreeItem
+            label={<CenterLabel name="Home" href={"/"} />}
+            nodeId="home"
+            key="home"
+            icon={<Home />}
+          >
+            <DirectoryTreeItems directories={data} />
+          </TreeItem>
         </TreeView>
       )}
     </Drawer>
