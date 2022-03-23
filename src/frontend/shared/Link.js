@@ -6,6 +6,8 @@ import NextLink from "next/link"
 import MuiLink from "@mui/material/Link"
 import { styled } from "@mui/material/styles"
 
+// https://github.com/mui/material-ui/blob/master/examples/nextjs/src/Link.js
+
 // Add support for the sx prop for consistency with the other branches.
 const Anchor = styled("a")({})
 
