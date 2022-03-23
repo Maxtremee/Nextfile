@@ -1,4 +1,4 @@
-import { Box, Modal, Paper } from "@mui/material"
+import { Box, Modal } from "@mui/material"
 import CloseModalButton from "../shared/CloseModalButton"
 import getDownloadLink from "../utils/getDownloadLink"
 import getMediaType from "../utils/getMediaType"
