@@ -23,7 +23,7 @@ export default function ActionButtons({ file }) {
   const handleMediaModalClose = () => setMediaModalOpen(false)
 
   const downloadFolder = () => {
-    router.push(getDownloadLink(href, true))
+    window.open(getDownloadLink(href))
   }
 
   const copyLink = () => {
