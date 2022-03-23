@@ -1,16 +1,22 @@
 import Link from "next/link"
 import { ListItemButton, ListItemIcon } from "@mui/material"
 import Folder from "@mui/icons-material/Folder"
+import ItemText from "./ItemText"
+import { memo } from "react"
 
-export default function DirectoryListItemButton({ href, children }) {
+function DirectoryItem({ file }) {
+  const { name, size, href, isDirectory } = file
+
   return (
     <Link href={href}>
       <ListItemButton>
         <ListItemIcon>
           <Folder />
         </ListItemIcon>
-        {children}
+        <ItemText name={name} size={size} isDirectory={isDirectory} />
       </ListItemButton>
     </Link>
   )
 }
+
+export default memo(DirectoryItem)

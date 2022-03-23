@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { useRouter } from "next/router"
 import { Box, IconButton, Tooltip } from "@mui/material"
 import { Archive, MoreVert, Share, Preview } from "@mui/icons-material"
 import DetailsModal from "./DetailsModal"
@@ -10,7 +9,6 @@ import getMediaType from "../utils/getMediaType"
 
 export default function ActionButtons({ file }) {
   const { href, isDirectory, extension } = file
-  const router = useRouter()
   const [mediaType] = getMediaType(extension)
 
   const [detailsModalOpen, setDetailsModalOpen] = useState(false)

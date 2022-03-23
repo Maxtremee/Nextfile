@@ -1,23 +1,14 @@
 import { ListItem, ListItemSecondaryAction } from "@mui/material"
 import ActionButtons from "../../ActionButtons"
-import FileEntryText from "./FileEntryText"
-import DirectoryListItemButton from "./DirectoryListItemButton"
-import FileListItemButton from "./FileListItemButton"
+import DirectoryItem from "./DirectoryItem"
+import FileItem from "./FileItem"
 
 export default function FileEntry({ file }) {
-  const { name, isDirectory, size, href } = file
+  const { isDirectory } = file
 
   return (
-    <ListItem sx={{ paddingRight: 0, paddingLeft: 0, width: "75%" }}>
-      {isDirectory ? (
-        <DirectoryListItemButton href={href}>
-          <FileEntryText name={name} size={size} />
-        </DirectoryListItemButton>
-      ) : (
-        <FileListItemButton href={href}>
-          <FileEntryText name={name} size={size} />
-        </FileListItemButton>
-      )}
+    <ListItem sx={{ paddingRight: 0, paddingLeft: 0 }}>
+      {isDirectory ? <DirectoryItem file={file} /> : <FileItem file={file} />}
       <ListItemSecondaryAction>
         <ActionButtons file={file} />
       </ListItemSecondaryAction>
