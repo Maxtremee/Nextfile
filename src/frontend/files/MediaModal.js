@@ -1,4 +1,5 @@
 import { Box, Modal, Paper } from "@mui/material"
+import CloseModalButton from "../shared/CloseModalButton"
 import getDownloadLink from "../utils/getDownloadLink"
 import getMediaType from "../utils/getMediaType"
 
@@ -48,6 +49,7 @@ export default function MediaModal({ file, open, onClose }) {
             />
           </audio>
         )}
+        <CloseModalButton onClose={onClose} />
       </Box>
     </Modal>
   )

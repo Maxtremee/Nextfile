@@ -1,4 +1,3 @@
-import Image from "next/image"
 import {
   Box,
   Modal,
@@ -10,13 +9,14 @@ import {
   TableContainer,
 } from "@mui/material"
 import prettyBytes from "pretty-bytes"
+import CloseModalButton from "../shared/CloseModalButton"
 
 const boxStyle = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  minWidth: 400,
+  minWidth: 300,
 }
 
 export default function DetailsModal({ file, open, onClose }) {
@@ -96,6 +96,7 @@ export default function DetailsModal({ file, open, onClose }) {
             </TableBody>
           </Table>
         </TableContainer>
+        <CloseModalButton onClose={onClose} />
       </Box>
     </Modal>
   )
