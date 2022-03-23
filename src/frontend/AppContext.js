@@ -1,5 +1,4 @@
 import { createContext, useContext, useMemo, useState } from "react"
-import { createTheme, useMediaQuery } from "@mui/material"
 
 const AppContext = createContext()
 
