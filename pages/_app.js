@@ -19,7 +19,6 @@ const clientSideEmotionCache = createEmotionCache()
 
 export default function MyApp(props) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
-  const appTitle = process.env.TITLE
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
   const theme = createTheme({
@@ -28,12 +27,11 @@ export default function MyApp(props) {
     },
   })
 
-
   return (
     <ThemeProvider theme={theme}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{appTitle || "Nextfile"}</title>
+          <title>Nextfile</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <CssBaseline />
