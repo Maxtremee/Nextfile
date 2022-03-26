@@ -3,7 +3,6 @@ import { Box, IconButton, Tooltip } from "@mui/material"
 import { Archive, MoreVert, Share, Preview } from "@mui/icons-material"
 import DetailsModal from "./DetailsModal"
 import getDownloadLink from "../utils/getDownloadLink"
-import { defaultShareTooltipText } from "../constants"
 import MediaModal from "./MediaModal"
 import getMediaType from "../utils/getMediaType"
 import { useTranslations } from "next-intl"
@@ -37,14 +36,14 @@ export default function ActionButtons({ file }) {
     <>
       <Box sx={{ display: "inline-block" }}>
         {isDirectory && (
-          <Tooltip title="Download folder as zip">
+          <Tooltip title={t("downloadFolderAsZip")}>
             <IconButton onClick={downloadFolder}>
               <Archive />
             </IconButton>
           </Tooltip>
         )}
         {mediaType && (
-          <Tooltip title="Preview">
+          <Tooltip title={t("preview")}>
             <IconButton onClick={handleMediaModalOpen}>
               <Preview />
             </IconButton>
@@ -52,13 +51,13 @@ export default function ActionButtons({ file }) {
         )}
         <Tooltip
           title={shareText}
-          onClose={() => setShareText(defaultShareTooltipText)}
+          onClose={() => setShareText(t("shareTooltip"))}
         >
           <IconButton onClick={copyLink}>
             <Share />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Details">
+        <Tooltip title={t("details")}>
           <IconButton onClick={handleDetailsModalOpen}>
             <MoreVert />
           </IconButton>

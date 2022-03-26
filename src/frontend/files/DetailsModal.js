@@ -33,7 +33,6 @@ export default function DetailsModal({ file, open, onClose }) {
   } = file
   const t = useTranslations("DetailsModal")
   const { formatDateTime } = useIntl()
-  console.log(birthtime)
 
   return (
     <Modal open={open} onClose={onClose}>

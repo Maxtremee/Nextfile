@@ -1,7 +1,10 @@
 {
   "ActionButtons": {
     "shareTooltip": "Udostępnij link",
-    "linkCopied": "Skopiowano link!"
+    "linkCopied": "Skopiowano link!",
+    "downloadFolderAsZip": "Pobierz folder jako zip",
+    "preview": "Pokaż",
+    "details": "Szczegóły"
   },
   "DetailsModal": {
     "name": "Nazwa",
