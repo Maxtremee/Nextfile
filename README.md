@@ -7,7 +7,7 @@ Easiest way to use Nextfile is to use prepared Docker containers available at bo
 ```
 docker run \
     --name=<container name> \
-    -p <host port>:9117 \
+    -p <host port>:3000 \
     -v <your file directory>:/app/files \
     maxtremee/nextfile
 ```
