@@ -8,6 +8,7 @@ import {
   TableBody,
   TableContainer,
 } from "@mui/material"
+import { useIntl, useTranslations } from "next-intl"
 import prettyBytes from "pretty-bytes"
 import CloseModalButton from "../shared/CloseModalButton"
 
@@ -22,7 +23,6 @@ const boxStyle = {
 export default function DetailsModal({ file, open, onClose }) {
   const {
     name,
-    href,
     isDirectory,
     birthtime,
     modified,
@@ -31,6 +31,9 @@ export default function DetailsModal({ file, open, onClose }) {
     size,
     extension,
   } = file
+  const t = useTranslations("DetailsModal")
+  const { formatDateTime } = useIntl()
+  console.log(birthtime)
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -39,7 +42,7 @@ export default function DetailsModal({ file, open, onClose }) {
           <Table>
             <TableBody>
               <TableRow key={"name"}>
-                <TableCell variant="head">Name</TableCell>
+                <TableCell variant="head">{t("name")}</TableCell>
                 <TableCell
                   align="right"
                   variant="head"
@@ -53,7 +56,7 @@ export default function DetailsModal({ file, open, onClose }) {
                   key={"extension"}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell>Extension</TableCell>
+                  <TableCell>{t("extension")}</TableCell>
                   <TableCell align="right">{extension}</TableCell>
                 </TableRow>
               )}
@@ -61,7 +64,7 @@ export default function DetailsModal({ file, open, onClose }) {
                 key={"size"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>Size</TableCell>
+                <TableCell>{t("size")}</TableCell>
                 <TableCell align="right">{prettyBytes(size)}</TableCell>
               </TableRow>
 
@@ -69,29 +72,29 @@ export default function DetailsModal({ file, open, onClose }) {
                 key={`birthtime`}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>Birthtime</TableCell>
-                <TableCell align="right">{birthtime}</TableCell>
+                <TableCell>{t("birthtime")}</TableCell>
+                <TableCell align="right">{formatDateTime(birthtime)}</TableCell>
               </TableRow>
               <TableRow
                 key={"modified"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>Modified</TableCell>
-                <TableCell align="right">{modified}</TableCell>
+                <TableCell>{t("modified")}</TableCell>
+                <TableCell align="right">{formatDateTime(modified)}</TableCell>
               </TableRow>
               <TableRow
                 key={"changed"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>Changed</TableCell>
-                <TableCell align="right">{changed}</TableCell>
+                <TableCell>{t("changed")}</TableCell>
+                <TableCell align="right">{formatDateTime(changed)}</TableCell>
               </TableRow>
               <TableRow
                 key={"accessed"}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>Accessed</TableCell>
-                <TableCell align="right">{accessed}</TableCell>
+                <TableCell>{t("accessed")}</TableCell>
+                <TableCell align="right">{formatDateTime(accessed)}</TableCell>
               </TableRow>
             </TableBody>
           </Table>

@@ -36,7 +36,6 @@ export default function AppBar() {
           size="large"
           edge="start"
           color="inherit"
-          aria-label="open drawer"
           onClick={() => setDrawerOpen((open) => !open)}
           sx={{ mr: 2 }}
         >

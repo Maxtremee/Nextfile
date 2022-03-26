@@ -35,7 +35,7 @@ export default function OptionsBar() {
   return (
     <Box sx={optionsBarStyle}>
       <Box sx={itemStyle}>
-        <Breadcrumbs aria-label="breadcrumb">
+        <Breadcrumbs>
           <Link underline="hover" color="inherit" href="/">
             <HomeIcon />
           </Link>
@@ -56,12 +56,11 @@ export default function OptionsBar() {
           value={view}
           onChange={setViewValue}
           exclusive
-          aria-label="file view"
         >
-          <ToggleButton value="list" aria-label="list view">
+          <ToggleButton value="list">
             <ViewListIcon />
           </ToggleButton>
-          <ToggleButton value="grid" aria-label="grid view">
+          <ToggleButton value="grid">
             <GridViewIcon />
           </ToggleButton>
         </ToggleButtonGroup>

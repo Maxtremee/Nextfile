@@ -8,6 +8,7 @@ import createEmotionCache from "../src/createEmotionCache"
 import NProgress from "nprogress"
 import AppContext from "../src/frontend/AppContext"
 import "../styles/nprogress.css"
+import { NextIntlProvider } from "next-intl"
 
 //Binding route events to show loading bar
 Router.events.on("routeChangeStart", () => NProgress.start())
@@ -17,9 +18,12 @@ Router.events.on("routeChangeError", () => NProgress.done())
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
-export default function MyApp(props) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
-
+export default function MyApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}) {
+  const { messages } = pageProps
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
   const theme = createTheme({
     palette: {
@@ -28,18 +32,23 @@ export default function MyApp(props) {
   })
 
   return (
-    <ThemeProvider theme={theme}>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <title>Nextfile</title>
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
-        <CssBaseline />
-        <AppContext>
-          <Component {...pageProps} />
-        </AppContext>
-      </CacheProvider>
-    </ThemeProvider>
+    <NextIntlProvider messages={messages}>
+      <ThemeProvider theme={theme}>
+        <CacheProvider value={emotionCache}>
+          <Head>
+            <title>Nextfile</title>
+            <meta
+              name="viewport"
+              content="initial-scale=1, width=device-width"
+            />
+          </Head>
+          <CssBaseline />
+          <AppContext>
+            <Component {...pageProps} />
+          </AppContext>
+        </CacheProvider>
+      </ThemeProvider>
+    </NextIntlProvider>
   )
 }
 

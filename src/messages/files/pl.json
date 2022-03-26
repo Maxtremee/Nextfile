@@ -1,0 +1,18 @@
+{
+  "ActionButtons": {
+    "shareTooltip": "Udostępnij link",
+    "linkCopied": "Skopiowano link!"
+  },
+  "DetailsModal": {
+    "name": "Nazwa",
+    "extension": "Rozszerzenie",
+    "size": "Rozmiar",
+    "birthtime": "Utworzono",
+    "modified": "Modyfikacja",
+    "changed": "Zmiana",
+    "accessed": "Dostęp"
+  },
+  "FileView": {
+    "emptyDirectory": "Folder jest pusty"
+  }
+}

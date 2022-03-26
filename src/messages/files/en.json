@@ -1,0 +1,18 @@
+{
+    "ActionButtons": {
+      "shareTooltip": "Share download link",
+      "linkCopied": "Link copied!"
+    },
+    "DetailsModal": {
+      "name": "Name",
+      "extension": "Extension",
+      "size": "Size",
+      "birthtime": "Birthtime",
+      "modified": "Modified",
+      "changed": "Changed",
+      "accessed": "Accessed"
+    },
+    "FileView": {
+      "emptyDirectory": "Directory is empty"
+    }
+}

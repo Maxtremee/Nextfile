@@ -9,6 +9,7 @@ import { drawerWidth } from "../constants"
 import fetcher from "../shared/fetcher"
 import { useAppContext } from "../AppContext"
 import { Home } from "@mui/icons-material"
+import { useTranslations } from "next-intl"
 
 const CenterLabel = ({ name, href }) => {
   const router = useRouter()
@@ -56,6 +57,7 @@ const DirectoryTreeItems = ({ directories }) =>
 export default function FolderDrawer() {
   const { drawerOpen } = useAppContext()
   const { data } = useSWR("/api/structure", fetcher)
+  const t = useTranslations("FolderDrawer")
 
   return (
     <Drawer
@@ -74,14 +76,13 @@ export default function FolderDrawer() {
       <Divider />
       {data && (
         <TreeView
-          aria-label="file system navigator"
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
           sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
           defaultExpanded={["home"]}
         >
           <TreeItem
-            label={<CenterLabel name="Home" href={"/"} />}
+            label={<CenterLabel name={t("home")} href={"/"} />}
             nodeId="home"
             key="home"
             icon={<Home />}

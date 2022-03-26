@@ -4,13 +4,6 @@ import getFolderSize from "get-folder-size"
 import { mainDir } from "./constants"
 import sortAlphabetically from "./sortAlphabetically"
 
-function dateToLocale(date, locales) {
-  if (locales) {
-    return new Date(date).toLocaleDateString(locales)
-  }
-  return date
-}
-
 async function getDirectorySize(dirPath) {
   try {
     const size = await getFolderSize.strict(dirPath)
@@ -28,7 +21,6 @@ async function getDirectorySize(dirPath) {
 export default async function readDirectory(
   dirPath,
   withDetails = true,
-  locales = null
 ) {
   const files = []
   try {
@@ -54,10 +46,10 @@ export default async function readDirectory(
               ...details,
               size: actualSize,
               extension,
-              birthtime: dateToLocale(birthtimeMs, locales),
-              modified: dateToLocale(mtimeMs, locales),
-              changed: dateToLocale(ctimeMs, locales),
-              accessed: dateToLocale(atimeMs, locales),
+              birthtime: birthtimeMs,
+              modified: mtimeMs,
+              changed: ctimeMs,
+              accessed: atimeMs,
             }
           } catch {
             continue

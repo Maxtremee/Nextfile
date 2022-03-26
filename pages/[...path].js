@@ -7,14 +7,18 @@ export default function Path(props) {
   return <Nextfile {...props} />
 }
 
-export async function getServerSideProps(context) {
-  const { locales } = context
-  const { path: filePath } = context.params
-  const files = await readDirectory(path.join(...filePath), true, locales)
+export async function getServerSideProps({ locale, params }) {
+  const { path: filePath } = params
+  const files = await readDirectory(path.join(...filePath), true)
 
   return {
     props: {
       files,
+      messages: {
+        ...require(`../src/messages/shared/${locale}.json`),
+        ...require(`../src/messages/layout/${locale}.json`),
+        ...require(`../src/messages/files/${locale}.json`),
+      },
     },
   }
 }
