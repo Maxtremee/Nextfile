@@ -5,10 +5,10 @@ Modern HTTP file directory made with [Next.js](https://nextjs.org/) and [MUI](ht
 ## Application setup
 Easiest way to use Nextfile is to use prepared Docker containers available at both ghcr.io and Docker Hub. Run below command with appropriate arguments to get started:
 ```
-docker run \
+docker run -d \
     --name=<container name> \
-    -p <host port>:3000 \
-    -v <your file directory>:/app/files \
+    -p <host port>:3000/tcp \
+    -v <your file directory>:/app/files:ro \
     maxtremee/nextfile
 ```
 
