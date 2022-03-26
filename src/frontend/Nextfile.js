@@ -1,5 +1,4 @@
 import { Box } from "@mui/material"
-import { ThemeProvider } from "@mui/material/styles"
 import AppBar from "./layout/AppBar"
 import MainStyled from "./layout/MainStyled"
 import FolderDrawer from "./layout/FolderDrawer"
@@ -9,7 +8,7 @@ import OptionsBar from "./layout/OptionsBar"
 import { useAppContext } from "./AppContext"
 
 export default function Nextfile({ files }) {
-  const { drawerOpen, theme } = useAppContext()
+  const { drawerOpen } = useAppContext()
 
   return (
     <Box sx={{ display: "flex" }}>
