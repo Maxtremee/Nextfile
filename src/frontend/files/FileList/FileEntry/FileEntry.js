@@ -7,7 +7,7 @@ export default function FileEntry({ file }) {
   const { isDirectory } = file
 
   return (
-    <ListItem sx={{ paddingRight: 0, paddingLeft: 0 }}>
+    <ListItem sx={{ paddingRight: 0, paddingLeft: 0 }} divider>
       {isDirectory ? <DirectoryItem file={file} /> : <FileItem file={file} />}
       <ListItemSecondaryAction>
         <ActionButtons file={file} />
