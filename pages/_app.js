@@ -9,6 +9,7 @@ import NProgress from "nprogress"
 import AppContext from "../src/frontend/AppContext"
 import "../styles/nprogress.css"
 import { NextIntlProvider } from "next-intl"
+import Nextfile from "../src/frontend/Nextfile"
 
 //Binding route events to show loading bar
 Router.events.on("routeChangeStart", () => NProgress.start())
@@ -44,7 +45,9 @@ export default function MyApp({
           </Head>
           <CssBaseline />
           <AppContext>
-            <Component {...pageProps} />
+            <Nextfile>
+              <Component {...pageProps} />
+            </Nextfile>
           </AppContext>
         </CacheProvider>
       </ThemeProvider>

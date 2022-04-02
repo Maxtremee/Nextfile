@@ -1,9 +1,9 @@
 import React from "react"
-import Nextfile from "../src/frontend/Nextfile"
+import FileView from "../src/frontend/files/FileView"
 import readDirectory from "../src/backend/readDirectory"
 
 export default function Index(props) {
-  return <Nextfile {...props} />
+  return <FileView {...props} />
 }
 
 export async function getServerSideProps({ locale }) {

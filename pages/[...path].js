@@ -1,10 +1,10 @@
 import React from "react"
 import path from "path"
-import Nextfile from "../src/frontend/Nextfile"
+import FileView from "../src/frontend/files/FileView"
 import readDirectory from "../src/backend/readDirectory"
 
 export default function Path(props) {
-  return <Nextfile {...props} />
+  return <FileView {...props} />
 }
 
 export async function getServerSideProps({ locale, params }) {

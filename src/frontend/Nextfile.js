@@ -5,19 +5,16 @@ import FolderDrawer from "./layout/FolderDrawer"
 import DrawerHeader from "./layout/DrawerHeader"
 import FileView from "./files/FileView"
 import OptionsBar from "./layout/OptionsBar"
-import { useAppContext } from "./AppContext"
 
-export default function Nextfile({ files }) {
-  const { drawerOpen } = useAppContext()
-
+export default function Nextfile({ children }) {
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar />
-      <FolderDrawer files={files} />
-      <MainStyled open={drawerOpen}>
+      <FolderDrawer />
+      <MainStyled>
         <DrawerHeader />
         <OptionsBar />
-        <FileView files={files} />
+        {children}
       </MainStyled>
     </Box>
   )
