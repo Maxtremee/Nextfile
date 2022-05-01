@@ -7,7 +7,7 @@ export default function Index(props) {
 }
 
 export async function getServerSideProps({ locale }) {
-  const files = await readDirectory("", true)
+  const files = await readDirectory("", true) || []
 
   return {
     props: {
